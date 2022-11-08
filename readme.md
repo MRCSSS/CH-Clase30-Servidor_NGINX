@@ -13,7 +13,7 @@
 Verificar que todo funcione correctamente.
 - Luego, modificar la configuración para que todas las consultas a /api/randoms sean redirigidas a un cluster de servidores gestionado desde nginx, repartiéndolas equitativamente entre 4 instancias escuchando en los puertos 8082, 8083, 8084 y 8085 respectivamente.
 - Incluir el archivo de configuración de nginx junto con el proyecto.
-- Incluir también un pequeño documento en donde se detallen los comandos que deben ejecutarse por línea de comandos y los argumentos que deben enviarse para levantar todas las instancias de servidores de modo que soporten la configuración detallada en los puntos anteriores.
+- Incluir también un pequeño [https://github.com/MRCSSS/CH-Clase30-Servidor_NGINX/blob/main/Clase30.txt](documento) en donde se detallen los comandos que deben ejecutarse por línea de comandos y los argumentos que deben enviarse para levantar todas las instancias de servidores de modo que soporten la configuración detallada en los puntos anteriores.
     - Ejemplo: 
         - pm2 start ./miservidor.js -- --port=8080 --modo=fork
         - pm2 start ./miservidor.js -- --port=8081 --modo=cluster
