@@ -4,18 +4,21 @@
         <div id='info' class="jumbotron text-info">
             <h5>Argumentos de entrada: 
                 <small>
-                <ul class="text-secondary">
-                    {{#each info.argv}}
-                        <li>{{this}}</li>
-                    {{/each}}
-                </ul>
+                    <ul class="text-secondary">
+                        {{#each params}}
+                            {{#if this.port}}<li>Puerto: {{this.port}}</li>{{/if}}
+                            {{#if this.serverMode}}<li>Modo del Server: {{this.serverMode}}</li>{{/if}}
+                            {{#if this.value}}<li>{{this.value}}</li>{{/if}}
+                        {{/each}}
+                    </ul>
                 </small>
             </h5>
             <h5>Path de ejecución: <small class="text-secondary">{{info.execPath}}</small></h5>
             <h5>Nombre de la plataforma (SO): <small class="text-secondary">{{info.platform}}</small></h5>
+            <h5>Cantidad de núcleos (CPU): <small class="text-secondary">{{cores}}</small></h5>
             <h5>Process id: <small class="text-secondary">{{info.pid}}</small></h5>
             <h5>Versión de node.js: <small class="text-secondary">{{info.version}}</small></h5>
-            <h5>Directorio del proyecto: <small class="text-secondary">{{info.pid}}</small></h5>
+            <h5>Directorio del proyecto: <small class="text-secondary">{{directory}}</small></h5>
             <h5>Memoria total reservada (rss): <small class="text-secondary">{{memUsage.rss}}</small></h5>
         </div>
     </div>
