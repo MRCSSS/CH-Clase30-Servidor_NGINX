@@ -18,7 +18,6 @@ randoms.get('/randoms', (req, res) => {
             socket.emit('serv-rNumbs', randomNumbersResult);
             console.log(`> Message received from forked process: Length of object: ${randomNumbersResult.length}`);
         });
-   
         socket.emit('serv-rNumbs');
     });
 

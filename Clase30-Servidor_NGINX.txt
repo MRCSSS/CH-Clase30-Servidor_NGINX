@@ -1,269 +1,40 @@
-SERVIDOR EN MODO FORK CON NODEMON:
-  EJECUTANDO:
-    ➜  Servidor_NGINX git:(main) ✗ nodemon main.js -- -p 3031 -s fork
-    [nodemon] 2.0.20
-    [nodemon] to restart at any time, enter `rs`
-    [nodemon] watching path(s): *.*
-    [nodemon] watching extensions: js,mjs,json
-    [nodemon] starting `node main.js -p 3031 -s fork`
-    PID worker: 63272 - Server mode: FORK, listening at: http://localhost:3031
-    [nodemon] app crashed - waiting for file changes before starting...
+➜  Servidor_NGINX git:(main) ✗ pm2 start main.js --name='Principal_Server' --watch -- -p 8081 -s fork
+[PM2] Starting /usr/local/etc/nginx/servers/Servidor_NGINX/main.js in fork_mode (1 instance)
+[PM2] Done.
+┌─────┬─────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id  │ name                │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├─────┼─────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0   │ Principal_Server    │ default     │ 1.0.0   │ fork    │ 92910    │ 0s     │ 0    │ online    │ 0%       │ 1.2mb    │ mss      │ enabled  │
+└─────┴─────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+➜  Servidor_NGINX git:(main) ✗ pm2 start main.js --name='RandomNumb_Server' --watch -- -p 8082 -s cluster
+[PM2] Starting /usr/local/etc/nginx/servers/Servidor_NGINX/main.js in fork_mode (1 instance)
+[PM2] Done.
+┌─────┬──────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id  │ name                 │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├─────┼──────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ 0   │ Principal_Server     │ default     │ 1.0.0   │ fork    │ 92910    │ 50s    │ 0    │ online    │ 0%       │ 77.8mb   │ mss      │ enabled  │
+│ 1   │ RandomNumb_Server    │ default     │ 1.0.0   │ fork    │ 93058    │ 0s     │ 0    │ online    │ 0%       │ 860.0kb  │ mss      │ enabled  │
+└─────┴──────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
 
-  VERIFICANDO PROCESOS:
-    SO:
-      ➜  ~ ps
-        PID TTY           TIME CMD
-        863 ttys000    0:00.58 -zsh
-      63270 ttys000    0:00.18 node /usr/local/bin/nodemon main.js -- -p 3031 -s fork
-      63272 ttys000    0:00.93 /usr/local/Cellar/node/19.0.1/bin/node main.js -p 3031 -s fork
-      63277 ttys000    0:00.06 /usr/local/Cellar/node/19.0.1/bin/node ./src/random-numbers.js
-      30887 ttys001    0:00.90 -zsh
-  
-  PRUEBAS DE FINALIZACIÓN:
-    ➜  ~ kill -9 63272
-
-SERVIDOR EN MODO CLUSTER CON NODEMON:
-  EJECUTANDO:
-    ➜  Servidor_NGINX git:(main) ✗ nodemon main.js -- -p 3031 -s cluster
-    [nodemon] 2.0.20
-    [nodemon] to restart at any time, enter `rs`
-    [nodemon] watching path(s): *.*
-    [nodemon] watching extensions: js,mjs,json
-    [nodemon] starting `node main.js -p 3031 -s cluster`
-    Cantidad de cores:  12
-    PID worker: 63386 - Server mode: CLUSTER, listening at: http://localhost:3031
-    PID worker: 63391 - Server mode: CLUSTER, listening at: http://localhost:3031
-    PID worker: 63394 - Server mode: CLUSTER, listening at: http://localhost:3031
-    PID worker: 63389 - Server mode: CLUSTER, listening at: http://localhost:3031
-    PID worker: 63388 - Server mode: CLUSTER, listening at: http://localhost:3031
-    PID worker: 63396 - Server mode: CLUSTER, listening at: http://localhost:3031
-    PID worker: 63395 - Server mode: CLUSTER, listening at: http://localhost:3031
-    PID worker: 63385 - Server mode: CLUSTER, listening at: http://localhost:3031
-    PID worker: 63392 - Server mode: CLUSTER, listening at: http://localhost:3031
-    PID worker: 63393 - Server mode: CLUSTER, listening at: http://localhost:3031
-    PID worker: 63387 - Server mode: CLUSTER, listening at: http://localhost:3031
-    PID worker: 63390 - Server mode: CLUSTER, listening at: http://localhost:3031
-    Worker: 5, whit PID: 63388, has been finished at 11/7/2022, 5:31:41 PM        *
-    PID worker: 66136 - Server mode: CLUSTER, listening at: http://localhost:3031
-
-  VERIFICANDO PROCESOS:
-    SO:
-      ➜  ~ ps
-        PID TTY           TIME CMD
-        863 ttys000    0:00.58 -zsh
-      63373 ttys000    0:00.17 node /usr/local/bin/nodemon main.js -- -p 3031 -s cluster
-      63377 ttys000    0:00.91 /usr/local/Cellar/node/19.0.1/bin/node main.js -p 3031 -s cluster
-      63383 ttys000    0:00.08 /usr/local/Cellar/node/19.0.1/bin/node ./src/random-numbers.js
-      63385 ttys000    0:01.12 /usr/local/Cellar/node/19.0.1/bin/node /Volumes/ADATA XPG/CoderHouse/FullStackDeveloper/04-Backend/Bloque02/Clase30/ENTREGAS/Servidor_NGINX/main.js -p 3031 -s cluster
-      63386 ttys000    0:01.12 /usr/local/Cellar/node/19.0.1/bin/node /Volumes/ADATA XPG/CoderHouse/FullStackDeveloper/04-Backend/Bloque02/Clase30/ENTREGAS/Servidor_NGINX/main.js -p 3031 -s cluster
-      63387 ttys000    0:01.13 /usr/local/Cellar/node/19.0.1/bin/node /Volumes/ADATA XPG/CoderHouse/FullStackDeveloper/04-Backend/Bloque02/Clase30/ENTREGAS/Servidor_NGINX/main.js -p 3031 -s cluster
-      63388 ttys000    0:01.12 /usr/local/Cellar/node/19.0.1/bin/node /Volumes/ADATA XPG/CoderHouse/FullStackDeveloper/04-Backend/Bloque02/Clase30/ENTREGAS/Servidor_NGINX/main.js -p 3031 -s cluster
-      63389 ttys000    0:01.12 /usr/local/Cellar/node/19.0.1/bin/node /Volumes/ADATA XPG/CoderHouse/FullStackDeveloper/04-Backend/Bloque02/Clase30/ENTREGAS/Servidor_NGINX/main.js -p 3031 -s cluster
-      63390 ttys000    0:01.13 /usr/local/Cellar/node/19.0.1/bin/node /Volumes/ADATA XPG/CoderHouse/FullStackDeveloper/04-Backend/Bloque02/Clase30/ENTREGAS/Servidor_NGINX/main.js -p 3031 -s cluster
-      63391 ttys000    0:01.14 /usr/local/Cellar/node/19.0.1/bin/node /Volumes/ADATA XPG/CoderHouse/FullStackDeveloper/04-Backend/Bloque02/Clase30/ENTREGAS/Servidor_NGINX/main.js -p 3031 -s cluster
-      63392 ttys000    0:01.14 /usr/local/Cellar/node/19.0.1/bin/node /Volumes/ADATA XPG/CoderHouse/FullStackDeveloper/04-Backend/Bloque02/Clase30/ENTREGAS/Servidor_NGINX/main.js -p 3031 -s cluster
-      63393 ttys000    0:01.14 /usr/local/Cellar/node/19.0.1/bin/node /Volumes/ADATA XPG/CoderHouse/FullStackDeveloper/04-Backend/Bloque02/Clase30/ENTREGAS/Servidor_NGINX/main.js -p 3031 -s cluster
-      63394 ttys000    0:01.12 /usr/local/Cellar/node/19.0.1/bin/node /Volumes/ADATA XPG/CoderHouse/FullStackDeveloper/04-Backend/Bloque02/Clase30/ENTREGAS/Servidor_NGINX/main.js -p 3031 -s cluster
-      63395 ttys000    0:01.13 /usr/local/Cellar/node/19.0.1/bin/node /Volumes/ADATA XPG/CoderHouse/FullStackDeveloper/04-Backend/Bloque02/Clase30/ENTREGAS/Servidor_NGINX/main.js -p 3031 -s cluster
-      63396 ttys000    0:01.12 /usr/local/Cellar/node/19.0.1/bin/node /Volumes/ADATA XPG/CoderHouse/FullStackDeveloper/04-Backend/Bloque02/Clase30/ENTREGAS/Servidor_NGINX/main.js -p 3031 -s cluster
-      63401 ttys000    0:00.06 /usr/local/Cellar/node/19.0.1/bin/node ./src/random-numbers.js
-      63402 ttys000    0:00.07 /usr/local/Cellar/node/19.0.1/bin/node ./src/random-numbers.js
-      63403 ttys000    0:00.07 /usr/local/Cellar/node/19.0.1/bin/node ./src/random-numbers.js
-      63404 ttys000    0:00.07 /usr/local/Cellar/node/19.0.1/bin/node ./src/random-numbers.js
-      63405 ttys000    0:00.07 /usr/local/Cellar/node/19.0.1/bin/node ./src/random-numbers.js
-      63406 ttys000    0:00.07 /usr/local/Cellar/node/19.0.1/bin/node ./src/random-numbers.js
-      63407 ttys000    0:00.07 /usr/local/Cellar/node/19.0.1/bin/node ./src/random-numbers.js
-      63408 ttys000    0:00.07 /usr/local/Cellar/node/19.0.1/bin/node ./src/random-numbers.js
-      63409 ttys000    0:00.07 /usr/local/Cellar/node/19.0.1/bin/node ./src/random-numbers.js
-      63410 ttys000    0:00.07 /usr/local/Cellar/node/19.0.1/bin/node ./src/random-numbers.js
-      63411 ttys000    0:00.07 /usr/local/Cellar/node/19.0.1/bin/node ./src/random-numbers.js
-      63412 ttys000    0:00.06 /usr/local/Cellar/node/19.0.1/bin/node ./src/random-numbers.js
-      30887 ttys001    0:00.91 -zsh
-
-  PRUEBAS DE FINALIZACIÓN: *
-    ➜  ~ kill -9 63388
-
-SERVIDOR EN MODO FORK CON FOREVER:
-  EJECUTANDO:
-    ➜  Servidor_NGINX git:(main) ✗ forever start main.js -p 3131 -s fork
-    warn:    --minUptime not set. Defaulting to: 1000ms
-    warn:    --spinSleepTime not set. Your script will exit if it does not stay up for at least 1000ms
-    info:    Forever processing file: main.js
-    (node:89838) Warning: Accessing non-existent property 'padLevels' of module exports inside circular dependency
-    (Use `node --trace-warnings ...` to show where the warning was created)
-    (node:89838) Warning: Accessing non-existent property 'padLevels' of module exports inside circular dependency
-
-  VERIFICANDO PROCESOS:
-    SO:
-      ➜  Servidor_NGINX git:(main) ✗ sudo lsof -i -P -n | grep LISTEN
-      remoted     122            root    5u  IPv6 0x9bf2b49df1b8fbc1      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49153 (LISTEN)
-      remoted     122            root    6u  IPv6 0x9bf2b49df1b90341      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49154 (LISTEN)
-      remoted     122            root    7u  IPv6 0x9bf2b49df1b90ac1      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49155 (LISTEN)
-      remoted     122            root    8u  IPv6 0x9bf2b49df1b91241      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49156 (LISTEN)
-      remoted     122            root    9u  IPv6 0x9bf2b49df1b919c1      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49157 (LISTEN)
-      remoted     122            root   10u  IPv6 0x9bf2b49df1b92141      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49158 (LISTEN)
-      remoted     122            root   11u  IPv6 0x9bf2b49df1b928c1      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49159 (LISTEN)
-      remoted     122            root   12u  IPv6 0x9bf2b49df1b93041      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49160 (LISTEN)
-      remoted     122            root   13u  IPv6 0x9bf2b49df1b937c1      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49161 (LISTEN)
-      remoted     122            root   14u  IPv6 0x9bf2b49df1b93f41      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49162 (LISTEN)
-      rapportd    492             mss    3u  IPv4 0x9bf2b49df04b8bc9      0t0    TCP *:49170 (LISTEN)
-      rapportd    492             mss    4u  IPv6 0x9bf2b49df1f9ebc1      0t0    TCP *:49170 (LISTEN)
-      LogiMgrDa   552             mss    3u  IPv4 0x9bf2b49df04bc369      0t0    TCP *:59866 (LISTEN)
-      Kite        607             mss    3u  IPv4 0x9bf2b49df04b96e9      0t0    TCP 127.0.0.1:46624 (LISTEN)
-      nginx     37701            root    6u  IPv4 0x9bf2b49defc62bc9      0t0    TCP *:8080 (LISTEN)
-      nginx     40673          nobody    6u  IPv4 0x9bf2b49defc62bc9      0t0    TCP *:8080 (LISTEN)
-      Code\x20H 80971             mss   64u  IPv4 0x9bf2b49def9159a9      0t0    TCP 127.0.0.1:55728 (LISTEN)
-      node      89844             mss   29u  IPv6 0x9bf2b49df1fa18c1      0t0    TCP *:3131 (LISTEN)
-
-    MÓDULO:
-      ➜  Servidor_NGINX git:(main) ✗ forever list
-      (node:89952) Warning: Accessing non-existent property 'padLevels' of module exports inside circular dependency
-      (Use `node --trace-warnings ...` to show where the warning was created)
-      (node:89952) Warning: Accessing non-existent property 'padLevels' of module exports inside circular dependency
-      info:    Forever processes running
-      data:        uid  command                                script                     forever pid   id logfile                      uptime
-      data:    [0] Wj6k /usr/local/Cellar/node/19.0.1/bin/node main.js -p 3131 -s fork    89839   89844    /Users/mss/.forever/Wj6k.log 0:0:0:33.449
-
-  PRUEBAS DE FINALIZACIÓN: *
-    ➜  Servidor_NGINX git:(main) ✗ forever stop Wj6k
-    (node:94418) Warning: Accessing non-existent property 'padLevels' of module exports inside circular dependency
-    (Use `node --trace-warnings ...` to show where the warning was created)
-    (node:94418) Warning: Accessing non-existent property 'padLevels' of module exports inside circular dependency
-    info:    Forever stopped process:
-        uid  command                                script                  forever pid   id logfile                      uptime
-    [0] Wj6k /usr/local/Cellar/node/19.0.1/bin/node main.js -p 3131 -s fork 89839   89844    /Users/mss/.forever/Wj6k.log 0:0:41:39.42500000000018
-
-SERVIDOR EN MODO FORK CON PM2:
-  EJECUTANDO:
-    ➜  Servidor_NGINX git:(main) ✗ pm2 start main.js --name="Server Fork" --watch -- -p 3131
-    [PM2] Starting /Volumes/ADATA XPG/CoderHouse/FullStackDeveloper/04-Backend/Bloque02/Clase30/ENTREGAS/Servidor_NGINX/main.js in fork_mode (1 instance)
-    [PM2] Done.
-    ┌─────┬───────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
-    │ id  │ name              │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
-    ├─────┼───────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
-    │ 0   │ Server Fork       │ default     │ 1.0.0   │ fork    │ 87349    │ 0s     │ 0    │ online    │ 0%       │ 22.8mb   │ mss      │ enabled  │
-    └─────┴───────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
-  VERIFICANDO PROCESOS:
-    SO:
-      ➜  Servidor_NGINX git:(main) ✗ sudo lsof -i -P -n | grep LISTEN
-      remoted     122           root    5u  IPv6 0x9bf2b49df1b8fbc1      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49153 (LISTEN)
-      remoted     122           root    6u  IPv6 0x9bf2b49df1b90341      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49154 (LISTEN)
-      remoted     122           root    7u  IPv6 0x9bf2b49df1b90ac1      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49155 (LISTEN)
-      remoted     122           root    8u  IPv6 0x9bf2b49df1b91241      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49156 (LISTEN)
-      remoted     122           root    9u  IPv6 0x9bf2b49df1b919c1      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49157 (LISTEN)
-      remoted     122           root   10u  IPv6 0x9bf2b49df1b92141      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49158 (LISTEN)
-      remoted     122           root   11u  IPv6 0x9bf2b49df1b928c1      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49159 (LISTEN)
-      remoted     122           root   12u  IPv6 0x9bf2b49df1b93041      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49160 (LISTEN)
-      remoted     122           root   13u  IPv6 0x9bf2b49df1b937c1      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49161 (LISTEN)
-      remoted     122           root   14u  IPv6 0x9bf2b49df1b93f41      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49162 (LISTEN)
-      rapportd    492            mss    3u  IPv4 0x9bf2b49df04b8bc9      0t0    TCP *:49170 (LISTEN)
-      rapportd    492            mss    4u  IPv6 0x9bf2b49df1f9ebc1      0t0    TCP *:49170 (LISTEN)
-      LogiMgrDa   552            mss    3u  IPv4 0x9bf2b49df04bc369      0t0    TCP *:59866 (LISTEN)
-      Kite        607            mss    3u  IPv4 0x9bf2b49df04b96e9      0t0    TCP 127.0.0.1:46624 (LISTEN)
-      node       2273            mss   49u  IPv6 0x9bf2b49df1fa18c1      0t0    TCP *:3232 (LISTEN)
-      nginx     37701           root    6u  IPv4 0x9bf2b49defc62bc9      0t0    TCP *:8080 (LISTEN)
-      nginx     40673         nobody    6u  IPv4 0x9bf2b49defc62bc9      0t0    TCP *:8080 (LISTEN)
-      Code\x20H 80969            mss   70u  IPv4 0x9bf2b49def6f59a9      0t0    TCP 127.0.0.1:58172 (LISTEN)
-      Code\x20H 80971            mss   64u  IPv4 0x9bf2b49def9159a9      0t0    TCP 127.0.0.1:55728 (LISTEN)
-      node      87349            mss   30u  IPv6 0x9bf2b49df1fa45c1      0t0    TCP *:3131 (LISTEN)
-
-  PRUEBAS DE FINALIZACIÓN: *
-    ➜  Servidor_NGINX git:(main) ✗ pm2 stop 0
-    [PM2] Applying action stopProcessId on app [0](ids: [ '0' ])
-    [PM2] [Server Fork](0) ✓
-    ┌─────┬───────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
-    │ id  │ name              │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
-    ├─────┼───────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
-    │ 0   │ Server Fork       │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ mss      │ disabled │
-    └─────┴───────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
-
-SERVIDOR EN MODO CLUSTER CON PM2:
-  EJECUTANDO:
-    ➜  Servidor_NGINX git:(main) ✗ pm2 start main.js --name="Server Cluster" --watch -i max -- -p 3232
-    [PM2] Starting /Volumes/ADATA XPG/CoderHouse/FullStackDeveloper/04-Backend/Bloque02/Clase30/ENTREGAS/Servidor_NGINX/main.js in cluster_mode (0 instance)
-    [PM2] Done.
-    ┌─────┬───────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
-    │ id  │ name              │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
-    ├─────┼───────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
-    │ 1   │ Server Cluster    │ default     │ 1.0.0   │ cluster │ 87348    │ 0s     │ 0    │ online    │ 0%       │ 23.6mb   │ mss      │ enabled  │
-    │ 2   │ Server Cluster    │ default     │ 1.0.0   │ cluster │ 87347    │ 0s     │ 0    │ online    │ 0%       │ 23.5mb   │ mss      │ enabled  │
-    │ 3   │ Server Cluster    │ default     │ 1.0.0   │ cluster │ 87377    │ 0s     │ 0    │ online    │ 0%       │ 23.2mb   │ mss      │ enabled  │
-    │ 4   │ Server Cluster    │ default     │ 1.0.0   │ cluster │ 87378    │ 0s     │ 0    │ online    │ 0%       │ 23.8mb   │ mss      │ enabled  │
-    │ 5   │ Server Cluster    │ default     │ 1.0.0   │ cluster │ 87401    │ 0s     │ 0    │ online    │ 0%       │ 22.9mb   │ mss      │ enabled  │
-    │ 6   │ Server Cluster    │ default     │ 1.0.0   │ cluster │ 87402    │ 0s     │ 0    │ online    │ 0%       │ 23.5mb   │ mss      │ enabled  │
-    │ 7   │ Server Cluster    │ default     │ 1.0.0   │ cluster │ 87428    │ 0s     │ 0    │ online    │ 0%       │ 22.9mb   │ mss      │ enabled  │
-    │ 8   │ Server Cluster    │ default     │ 1.0.0   │ cluster │ 87429    │ 0s     │ 0    │ online    │ 0%       │ 22.6mb   │ mss      │ enabled  │
-    │ 9   │ Server Cluster    │ default     │ 1.0.0   │ cluster │ 87456    │ 0s     │ 0    │ online    │ 0%       │ 23.1mb   │ mss      │ enabled  │
-    │ 10  │ Server Cluster    │ default     │ 1.0.0   │ cluster │ 87457    │ 0s     │ 0    │ online    │ 0%       │ 22.9mb   │ mss      │ enabled  │
-    │ 11  │ Server Cluster    │ default     │ 1.0.0   │ cluster │ 87479    │ 0s     │ 0    │ online    │ 0%       │ 23.3mb   │ mss      │ enabled  │
-    │ 12  │ Server Cluster    │ default     │ 1.0.0   │ cluster │ 87480    │ 0s     │ 0    │ online    │ 0%       │ 22.6mb   │ mss      │ enabled  │
-    │ 0   │ Server Fork       │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ mss      │ disabled │
-    └─────┴───────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
-
-  VERIFICANDO PROCESOS:
-    SO:
-      ➜  Servidor_NGINX git:(main) ✗ sudo lsof -i -P -n | grep LISTEN
-      remoted     122           root    5u  IPv6 0x9bf2b49df1b8fbc1      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49153 (LISTEN)
-      remoted     122           root    6u  IPv6 0x9bf2b49df1b90341      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49154 (LISTEN)
-      remoted     122           root    7u  IPv6 0x9bf2b49df1b90ac1      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49155 (LISTEN)
-      remoted     122           root    8u  IPv6 0x9bf2b49df1b91241      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49156 (LISTEN)
-      remoted     122           root    9u  IPv6 0x9bf2b49df1b919c1      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49157 (LISTEN)
-      remoted     122           root   10u  IPv6 0x9bf2b49df1b92141      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49158 (LISTEN)
-      remoted     122           root   11u  IPv6 0x9bf2b49df1b928c1      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49159 (LISTEN)
-      remoted     122           root   12u  IPv6 0x9bf2b49df1b93041      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49160 (LISTEN)
-      remoted     122           root   13u  IPv6 0x9bf2b49df1b937c1      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49161 (LISTEN)
-      remoted     122           root   14u  IPv6 0x9bf2b49df1b93f41      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49162 (LISTEN)
-      rapportd    492            mss    3u  IPv4 0x9bf2b49df04b8bc9      0t0    TCP *:49170 (LISTEN)
-      rapportd    492            mss    4u  IPv6 0x9bf2b49df1f9ebc1      0t0    TCP *:49170 (LISTEN)
-      LogiMgrDa   552            mss    3u  IPv4 0x9bf2b49df04bc369      0t0    TCP *:59866 (LISTEN)
-      Kite        607            mss    3u  IPv4 0x9bf2b49df04b96e9      0t0    TCP 127.0.0.1:46624 (LISTEN)
-      node       2273            mss   49u  IPv6 0x9bf2b49df1fa18c1      0t0    TCP *:3232 (LISTEN)
-      nginx     37701           root    6u  IPv4 0x9bf2b49defc62bc9      0t0    TCP *:8080 (LISTEN)
-      nginx     40673         nobody    6u  IPv4 0x9bf2b49defc62bc9      0t0    TCP *:8080 (LISTEN)
-      Code\x20H 80969            mss   70u  IPv4 0x9bf2b49def6f59a9      0t0    TCP 127.0.0.1:58172 (LISTEN)
-      Code\x20H 80971            mss   64u  IPv4 0x9bf2b49def9159a9      0t0    TCP 127.0.0.1:55728 (LISTEN)
-      node      87349            mss   30u  IPv6 0x9bf2b49df1fa45c1      0t0    TCP *:3131 (LISTEN)
-
-  PRUEBAS DE FINALIZACIÓN: *
-    ➜  Servidor_NGINX git:(main) ✗ pm2 stop 1 2 3 4 5 6 7 8 9 10 11 12
-    [PM2] Applying action stopProcessId on app [1](ids: [ '1' ])
-    [PM2] [Server Fork](1) ✓
-    [PM2] Applying action stopProcessId on app [2](ids: [ '2' ])
-    [PM2] [Server Cluster](2) ✓
-    [PM2] Applying action stopProcessId on app [3](ids: [ '3' ])
-    [PM2] [Server Cluster](3) ✓
-    [PM2] Applying action stopProcessId on app [4](ids: [ '4' ])
-    [PM2] [Server Cluster](4) ✓
-    [PM2] Applying action stopProcessId on app [5](ids: [ '5' ])
-    [PM2] [Server Cluster](5) ✓
-    [PM2] Applying action stopProcessId on app [6](ids: [ '6' ])
-    [PM2] [Server Cluster](6) ✓
-    [PM2] Applying action stopProcessId on app [7](ids: [ '7' ])
-    [PM2] [Server Cluster](7) ✓
-    [PM2] Applying action stopProcessId on app [8](ids: [ '8' ])
-    [PM2] [Server Cluster](8) ✓
-    [PM2] Applying action stopProcessId on app [9](ids: [ '9' ])
-    [PM2] [Server Cluster](9) ✓
-    [PM2] Applying action stopProcessId on app [10](ids: [ '10' ])
-    [PM2] [Server Cluster](10) ✓
-    [PM2] Applying action stopProcessId on app [11](ids: [ '11' ])
-    [PM2] [Server Cluster](11) ✓
-    [PM2] Applying action stopProcessId on app [12](ids: [ '12' ])
-    [PM2] [Server Cluster](12) ✓
-    ┌─────┬───────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
-    │ id  │ name              │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
-    ├─────┼───────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
-    │ 1   │ Server Cluster    │ default     │ 1.0.0   │ cluster │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ mss      │ disabled │
-    │ 2   │ Server Cluster    │ default     │ 1.0.0   │ cluster │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ mss      │ disabled │
-    │ 3   │ Server Cluster    │ default     │ 1.0.0   │ cluster │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ mss      │ disabled │
-    │ 4   │ Server Cluster    │ default     │ 1.0.0   │ cluster │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ mss      │ disabled │
-    │ 5   │ Server Cluster    │ default     │ 1.0.0   │ cluster │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ mss      │ disabled │
-    │ 6   │ Server Cluster    │ default     │ 1.0.0   │ cluster │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ mss      │ disabled │
-    │ 7   │ Server Cluster    │ default     │ 1.0.0   │ cluster │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ mss      │ disabled │
-    │ 8   │ Server Cluster    │ default     │ 1.0.0   │ cluster │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ mss      │ disabled │
-    │ 9   │ Server Cluster    │ default     │ 1.0.0   │ cluster │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ mss      │ disabled │
-    │ 10  │ Server Cluster    │ default     │ 1.0.0   │ cluster │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ mss      │ disabled │
-    │ 11  │ Server Cluster    │ default     │ 1.0.0   │ cluster │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ mss      │ disabled │
-    │ 12  │ Server Cluster    │ default     │ 1.0.0   │ cluster │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ mss      │ disabled │
-    │ 0   │ Server Fork       │ default     │ 1.0.0   │ fork    │ 0        │ 0      │ 0    │ stopped   │ 0%       │ 0b       │ mss      │ disabled │
-    └─────┴───────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+➜  ~ sudo lsof -i -P -n | grep LISTEN
+Password:
+remoted     122            root    5u  IPv6 0x2779d78ec6b1c913      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49153 (LISTEN)
+remoted     122            root    6u  IPv6 0x2779d78ec6b1d093      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49154 (LISTEN)
+remoted     122            root    7u  IPv6 0x2779d78ec6b1d813      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49155 (LISTEN)
+remoted     122            root    8u  IPv6 0x2779d78ec6b1df93      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49156 (LISTEN)
+remoted     122            root    9u  IPv6 0x2779d78ec6b1e713      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49157 (LISTEN)
+remoted     122            root   10u  IPv6 0x2779d78ec6b1ee93      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49158 (LISTEN)
+remoted     122            root   11u  IPv6 0x2779d78ec6b1f613      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49159 (LISTEN)
+remoted     122            root   12u  IPv6 0x2779d78ec6b1fd93      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49160 (LISTEN)
+remoted     122            root   13u  IPv6 0x2779d78ec6b20513      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49161 (LISTEN)
+remoted     122            root   14u  IPv6 0x2779d78ec6b20c93      0t0    TCP [fe80:5::aede:48ff:fe00:1122]:49162 (LISTEN)
+rapportd    471             mss    3u  IPv4 0x2779d7985fc1e91b      0t0    TCP *:49172 (LISTEN)
+rapportd    471             mss    4u  IPv6 0x2779d78ec694fa13      0t0    TCP *:49172 (LISTEN)
+LogiMgrDa   636             mss    3u  IPv4 0x2779d7985f5e6f5b      0t0    TCP *:59866 (LISTEN)
+Kite        670             mss    6u  IPv4 0x2779d7985f5e4dfb      0t0    TCP 127.0.0.1:46624 (LISTEN)
+node       1650             mss   30u  IPv6 0x2779d78ec6b1ba13      0t0    TCP *:8081 (LISTEN)
+node       1655             mss   47u  IPv6 0x2779d78ec6955b93      0t0    TCP *:8082 (LISTEN)
+nginx     92507            root    6u  IPv4 0x2779d7985f1f1f5b      0t0    TCP *:8087 (LISTEN)
+nginx     92508          nobody    6u  IPv4 0x2779d7985f1f1f5b      0t0    TCP *:8087 (LISTEN)
+nginx     92729            root    6u  IPv4 0x2779d7985f2040bb      0t0    TCP *:8080 (LISTEN)
+nginx     92730          nobody    6u  IPv4 0x2779d7985f2040bb      0t0    TCP *:8080 (LISTEN)
