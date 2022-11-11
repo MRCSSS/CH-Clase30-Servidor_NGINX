@@ -1,7 +1,6 @@
 /* ============================ MODULOS ============================= */
 import express from 'express';
 import { fork } from 'child_process';
-import {msgsDao} from '../daos/index.js';
 
 /* ====================== INSTANCIA DE ROUTER ======================= */
 const randoms = express.Router();
